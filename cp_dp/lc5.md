@@ -56,8 +56,8 @@ above code is not fulfill the requirement
 
 ```java
 	public String lps(String s) { 
-		if (s == null || s.isEmpty()) return s; // return type wrong
-		boolean[][] dp = new boolean[s.length()][s.length()]; // array initiate to wrong type
+		if (s == null || s.isEmpty()) return s; 
+		boolean[][] dp = new boolean[s.length()][s.length()]; 
 		String max = ""; // error if not initialised
 		Arrays.fill(dp, new boolean[s.length()]);
 		for (int len = 1; len <= s.length(); len++) {//loop through all substring length
@@ -67,7 +67,7 @@ above code is not fulfill the requirement
 				if (isInnerValid && s.charAt(i) == s.charAt(j)) {
 					dp[i][j] = true;
 					max = s.substring(i, j+1); 
-				} else { //forget to handle else case
+				} else { //don't forget to handle else case
 					dp[i][j] = false;			
 				}
 			}
@@ -76,8 +76,88 @@ above code is not fulfill the requirement
 	}		
 ```
 
+*above code failed in test case*
+"abceefea"
+Actual: "ee"
+expect: "efe"
+
 *error*
 * return type wrong in first line
 * array init to wrong type
 * return value may not be initialized
 * forget to handle else case
+
+*Why above code is failed*
+```java
+	Arrays.fill(dp, new boolean[s.length()]);
+```
+This line of code assign all dp[i] to the same boolean array.
+
+###### expand from centre
+
+reorder the computation from dp approach. we just need to compute result from single centre first.
+
+```java
+
+private String longestAtCentre(String s, int i, int j) {
+	while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+		i--;
+		j++;
+	}	
+	return s.substring(i+1, j);
+}
+
+public String longestPalindrome(String s) {
+	String oddMax = "";
+	String evenMax = "";
+	for (int i = 0; i < s.length(); i++) {
+		oddMax = longestAtCentre(s, i, i); //odd length;
+	}
+	for (int i = 0; i < s.length()-1; i++) {
+		evenMax = longestAtCentre(s, i, i+1); //even length;
+	}
+	if (oddMax.length() > evenMax.length()) {
+		return oddMax;
+	} else {
+		return evenMax;
+	}
+}
+
+```
+
+*above code failed for test case:*
+
+"babad"
+Expect: "bab"
+Actual: "d"
+
+*correct code below* 
+
+```java
+
+private String longestAtCentre(String s, int i, int j) {
+	while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+		i--;
+		j++;
+	}	
+	return s.substring(i+1, j);
+}
+
+public String longestPalindrome(String s) {
+	String max = ""; //must be initialized otherwise compilation error
+	for (int i = 0; i < s.length(); i++) {
+		String temp = longestAtCentre(s, i, i); //odd length;
+		max = max.length() < temp.length() ? temp : max;
+	}
+	for (int i = 0; i < s.length()-1; i++) {
+		String temp = longestAtCentre(s, i, i+1); //even length;
+		max = max.length() < temp.length() ? temp : max;
+	}
+	return max;
+}
+
+```
+*Some articles about this problem*
+https://articles.leetcode.com/longest-palindromic-substring-part-i/
+https://articles.leetcode.com/longest-palindromic-substring-part-ii/
+https://www.felix021.com/blog/read.php?2040
