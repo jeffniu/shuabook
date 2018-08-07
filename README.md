@@ -7,5 +7,6 @@
 	* [2. Add Two Numbers](cp_list/lc2.md)
 * [String](cp_string/readme.md)
 	* [3. Longest Substring Without Repeating Characters](cp_string/lc3.md)
+	* [6. ZigZag Conversion](cp_string/lc6.md)
 * [DP](cp_dp/readme.md)
 	* [5. Longest Palindromic substring](cp_dp/lc5.md)
