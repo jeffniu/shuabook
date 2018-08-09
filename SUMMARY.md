@@ -4,6 +4,8 @@
 * [Preface](preface.md)
 * [Array](cp_array/README.md)
 	* [11. Container With Most Water](cp_array/lc11.md)
+	* [12. Integer to Roman](cp_array/lc12.md)
+	* [13. Roman to Integer](cp_array/lc13.md)
 * [List](cp_list/readme.md)
 	* [2. Add Two Numbers](cp_list/lc2.md)
 * [String](cp_string/readme.md)
