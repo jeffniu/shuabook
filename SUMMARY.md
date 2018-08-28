@@ -14,3 +14,5 @@
 * [DP](cp_dp/readme.md)
 	* [5. Longest Palindromic substring](cp_dp/lc5.md)
 	* [10. Regular expression matching](cp_dp/lc10.md)
+* [Methodology](cp_science/readme.md)
+	* [Development of Programs](cp_science/science.md)
